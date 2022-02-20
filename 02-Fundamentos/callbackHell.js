@@ -20,7 +20,7 @@ const salarios = [
   },
   {
     id: 2,
-    nombre: 1500,
+    salario: 1500,
   },
 ];
 
