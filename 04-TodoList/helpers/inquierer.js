@@ -19,7 +19,7 @@ const options = [
 ];
 
 const inquirerMenu = async () => {
-  // console.clear();
+  console.clear();
 
   // Header
   console.log('============================='.rainbow);
@@ -31,4 +31,16 @@ const inquirerMenu = async () => {
   return option;
 };
 
-module.exports = { inquirerMenu };
+const pause = async () => {
+  const pauseValue = [
+    { type: 'input', name: 'pauseInput', message: `Press ${'enter'.blue} to continue: ` },
+  ];
+
+  console.log('\n');
+
+  const value = await inquirer.prompt(pauseValue);
+
+  return value;
+};
+
+module.exports = { inquirerMenu, pause };
