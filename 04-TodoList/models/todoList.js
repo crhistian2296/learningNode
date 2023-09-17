@@ -1,7 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 const { Todo } = require('./todo');
 const fs = require('fs');
-const { pause } = require('../helpers/inquierer');
 
 /**_list:
  * {'uuid-1234-1234-2: {id: 12, desc:'asdfa', complete: true}'}
