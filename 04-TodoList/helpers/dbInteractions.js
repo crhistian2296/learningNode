@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { pause } = require('./inquierer');
 
 const file = './db/data.json';
 
@@ -7,7 +8,13 @@ const saveToDB = (data) => {
 };
 
 const readtoDB = () => {
-  if (!fs.readFileSync(file)) return null;
+  try {
+    fs.readFileSync(file);
+  } catch (err) {
+    pause();
+    return null;
+  }
+
   const data = fs.readFileSync(file, { encoding: 'utf-8' });
   const parsedData = JSON.parse(data);
 
