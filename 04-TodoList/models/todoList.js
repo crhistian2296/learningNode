@@ -18,6 +18,20 @@ class TodoList {
     return keyList;
   }
 
+  get printTodos() {
+    console.log();
+    this.listLog.forEach((todo, i) => {
+      const index = String(i + 1);
+      const { desc, complete } = todo;
+      const print = `${index.magenta}. ${desc}:: ${complete ? 'complete'.green : 'incomplete'.red}`;
+      console.log(print);
+    });
+  }
+
+  loadTodos(db = []) {
+    db.forEach((todo) => (this._list[todo.id] = todo));
+  }
+
   createTodo(desc = '') {
     const newTodo = new Todo();
     newTodo.desc = desc;

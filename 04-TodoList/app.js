@@ -12,11 +12,7 @@ const main = async () => {
 
   const db = readtoDB();
 
-  if (db) {
-    // TODO: Establecer tareas
-  }
-
-  await pause();
+  if (db) todoList.loadTodos(db);
 
   do {
     opt = await inquirerMenu();
@@ -29,7 +25,7 @@ const main = async () => {
         console.log(desc);
         break;
       case '2':
-        console.log(todoList.listLog);
+        todoList.printTodos;
         break;
       case '0':
         console.log('\nBye!!\n'.green);
