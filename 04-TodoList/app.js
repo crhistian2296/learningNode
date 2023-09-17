@@ -25,7 +25,13 @@ const main = async () => {
         console.log(desc);
         break;
       case '2':
-        todoList.printTodos;
+        todoList.printTodos();
+        break;
+      case '3':
+        todoList.printCompleteIncomplete('complete');
+        break;
+      case '4':
+        todoList.printCompleteIncomplete('incomplete');
         break;
       case '0':
         console.log('\nBye!!\n'.green);
