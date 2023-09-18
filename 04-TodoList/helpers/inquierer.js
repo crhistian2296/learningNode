@@ -1,10 +1,11 @@
 const inquirer = require('inquirer');
+const { TodoList } = require('../models/todoList');
 require('colors');
 
 const options = [
   {
     type: 'list',
-    name: 'option',
+    name: 'actions',
     messages: 'What is your desire?',
     choices: [
       { value: '1', name: `${'1.'.blue} Add Todo` },
@@ -26,9 +27,9 @@ const inquirerMenu = async () => {
   console.log('       Choose an option      '.white);
   console.log('=============================\n'.rainbow);
 
-  const { option } = await inquirer.prompt(options);
+  const { actions } = await inquirer.prompt(options);
 
-  return option;
+  return actions;
 };
 
 const pause = async () => {
@@ -41,6 +42,45 @@ const pause = async () => {
   const value = await inquirer.prompt(pauseValue);
 
   return value;
+};
+
+const deleteAndPrint = async (list = []) => {
+  // { value: todo.id, name: `${'1.'.blue} Add Todo` },
+  const choices = list.map((todo, i) => {
+    const index = `${i + 1}.`.blue;
+
+    return {
+      value: todo.id,
+      name: `${index} ${todo.desc}`,
+    };
+  });
+
+  choices.unshift({ value: '0', name: `${'0.'.blue} Exit` });
+
+  const questions = [
+    {
+      type: 'list',
+      name: 'id',
+      message: 'delete',
+      choices,
+    },
+  ];
+
+  const { id } = await inquirer.prompt(questions);
+  return id;
+};
+
+const confirm = async (message = '') => {
+  const questions = [
+    {
+      type: 'confirm',
+      name: 'ok',
+      message,
+    },
+  ];
+
+  const { ok } = await inquirer.prompt(questions);
+  return ok;
 };
 
 const readInput = async (message) => {
@@ -61,4 +101,4 @@ const readInput = async (message) => {
   return desc;
 };
 
-module.exports = { inquirerMenu, pause, readInput };
+module.exports = { inquirerMenu, pause, readInput, deleteAndPrint, confirm };

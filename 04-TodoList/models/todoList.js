@@ -18,6 +18,10 @@ class TodoList {
     return keyList;
   }
 
+  deleteTodo(id = '') {
+    if (this._list[id]) delete this._list[id];
+  }
+
   printTodos(list = this.listLog) {
     console.log();
     list.forEach((todo, i) => {
