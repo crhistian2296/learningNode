@@ -101,4 +101,29 @@ const readInput = async (message) => {
   return desc;
 };
 
-module.exports = { inquirerMenu, pause, readInput, deleteAndPrint, confirm };
+const todoListCheck = async (list = []) => {
+  // { value: todo.id, name: `${'1.'.blue} Add Todo` },
+  const choices = list.map((todo, i) => {
+    const index = `${i + 1}.`.blue;
+
+    return {
+      value: todo.id,
+      name: `${index} ${todo.desc}`,
+      checked: todo.complete ? true : false,
+    };
+  });
+
+  const question = [
+    {
+      type: 'checkbox',
+      name: 'ids',
+      message: 'Select',
+      choices,
+    },
+  ];
+
+  const { ids } = await inquirer.prompt(question);
+  return ids;
+};
+
+module.exports = { inquirerMenu, pause, readInput, deleteAndPrint, confirm, todoListCheck };

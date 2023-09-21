@@ -1,7 +1,14 @@
 require('colors');
 
 const { saveToDB, readtoDB } = require('./helpers/dbInteractions');
-const { inquirerMenu, pause, readInput, deleteAndPrint, confirm } = require('./helpers/inquierer');
+const {
+  inquirerMenu,
+  pause,
+  readInput,
+  deleteAndPrint,
+  confirm,
+  todoListCheck,
+} = require('./helpers/inquierer');
 const { Todo } = require('./models/todo');
 const { TodoList } = require('./models/todoList');
 // const { showMenu, pause } = require('./helpers/messages');
@@ -32,6 +39,10 @@ const main = async () => {
         break;
       case '4':
         todoList.printCompleteIncomplete('incomplete');
+        break;
+      case '5':
+        const ids = await todoListCheck(todoList.listLog);
+        todoList.checkTodo(ids);
         break;
       case '6':
         const id = await deleteAndPrint(todoList.listLog);

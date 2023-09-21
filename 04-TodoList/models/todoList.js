@@ -1,6 +1,4 @@
-const { v4: uuidv4 } = require('uuid');
 const { Todo } = require('./todo');
-const fs = require('fs');
 
 /**_list:
  * {'uuid-1234-1234-2: {id: 12, desc:'asdfa', complete: true}'}
@@ -22,12 +20,22 @@ class TodoList {
     if (this._list[id]) delete this._list[id];
   }
 
+  checkTodo(list = []) {
+    for (const todo of this.listLog) {
+      if (!list.includes(todo.id)) todo.complete = null;
+    }
+    list.forEach((todoID) => {
+      if (todoID in this._list && this._list[todoID]['complete'] === null)
+        this._list[todoID]['complete'] = new Date().toISOString();
+    });
+  }
+
   printTodos(list = this.listLog) {
     console.log();
     list.forEach((todo, i) => {
       const index = String(i + 1);
       const { desc, complete } = todo;
-      const print = `${index.magenta}. ${desc} :: ${complete ? complete : 'incomplete'.red}`;
+      const print = `${index.magenta}. ${desc} :: ${complete ? complete.green : 'incomplete'.red}`;
       console.log(print);
     });
   }
