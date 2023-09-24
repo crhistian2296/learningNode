@@ -1,5 +1,4 @@
 const inquirer = require('inquirer');
-const { TodoList } = require('../models/todoList');
 require('colors');
 
 const options = [
