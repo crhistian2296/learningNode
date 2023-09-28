@@ -39,14 +39,14 @@ const pause = async () => {
   return value;
 };
 
-const deleteAndPrint = async (list = []) => {
+const listPlaces = async (list = []) => {
   // { value: todo.id, name: `${'1.'.blue} Add Todo` },
-  const choices = list.map((todo, i) => {
+  const choices = list.map((place, i) => {
     const index = `${i + 1}.`.blue;
 
     return {
-      value: todo.id,
-      name: `${index} ${todo.desc}`,
+      value: place.id,
+      name: `${index} ${place.name}, ${place.state}, ${place.country}`,
     };
   });
 
@@ -56,7 +56,7 @@ const deleteAndPrint = async (list = []) => {
     {
       type: 'list',
       name: 'id',
-      message: 'delete',
+      message: 'Select a city',
       choices,
     },
   ];
@@ -121,4 +121,4 @@ const todoListCheck = async (list = []) => {
   return ids;
 };
 
-module.exports = { inquirerMenu, pause, readInput, deleteAndPrint, confirm, todoListCheck };
+module.exports = { inquirerMenu, pause, readInput, listPlaces, confirm, todoListCheck };

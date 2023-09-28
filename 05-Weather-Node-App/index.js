@@ -1,7 +1,7 @@
 require('colors');
 require('dotenv').config();
 
-const { inquirerMenu, pause, readInput } = require('./helpers/inquierer');
+const { inquirerMenu, pause, readInput, listPlaces } = require('./helpers/inquierer');
 const { Searches } = require('./models/searches');
 
 const main = async () => {
@@ -11,25 +11,31 @@ const main = async () => {
   do {
     opt = await inquirerMenu('what would you like to do?');
     opt = Number(opt);
-    console.log({ opt });
 
     switch (opt) {
-      case 1: //TODO: show message, search place, show possible choices, show weather data
+      case 1: // Search city
         const place = await readInput('Search city: ');
-        await searches.city(place);
 
-        console.log(`\nWeather in ${place}`.blue);
-        console.log('Lat:');
-        console.log('Lng:');
-        console.log('Temp:');
-        console.log('Max Temp:');
-        console.log('Min Temp:');
+        // Search places
+        const places = await searches.cities(place);
+        // Choose city
+        const id = await listPlaces(places);
+        console.log({ id });
+
+        const selectedPlace = places.find((place) => place.id === id);
+
+        console.log(
+          `\nWeather in ${selectedPlace.name}, ${selectedPlace.state}, ${selectedPlace.country}`
+            .blue
+        );
+        console.log(`Lat: ${selectedPlace.lat}`);
+        console.log(`Lng: ${selectedPlace.lon}`);
+        console.log(`Temp: `);
+        console.log(`Max Temp: `);
+        console.log(`Min Temp: `);
         break;
-      case 2:
+      case 2: // Historic
         console.log(2);
-        break;
-
-      default:
         break;
     }
 

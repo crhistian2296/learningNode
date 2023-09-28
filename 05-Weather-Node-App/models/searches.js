@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { v4: uuidv4 } = require('uuid');
 
 class Searches {
   record = [''];
@@ -14,17 +15,19 @@ class Searches {
     };
   }
 
-  async city(place = '') {
-    // console.log('city =', place);
+  async cities(place = '') {
     try {
       const instance = axios.create({
         baseURL: `https://api.openweathermap.org/geo/1.0/direct?q=${place}`,
         params: this.OWParams,
       });
-      const resp = await instance.get();
-      console.log(resp);
+      const { data } = await instance.get();
 
-      return [];
+      return data.map((location) => ({
+        id: uuidv4(),
+        name: `${location.name}, ${location.state}, ${location.country}`,
+        ...location,
+      }));
     } catch (err) {
       return [];
     }
