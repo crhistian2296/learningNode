@@ -1,0 +1,18 @@
+# Ejemplos de llamadas a openWeatherAPI
+# necesaria extension: REST Client
+
+GET  http://api.openweathermap.org/geo/1.0/direct
+  ?q=rio
+  &limit=5
+  &appid=dc95562776b6b4eaf655bac72e985edb
+# Location query
+
+###
+
+GET https://api.openweathermap.org/data/2.5/onecall
+  ?lat=-22.9110137
+  &lon=-43.2093727
+  &units=metric
+  &exclude=minutely
+  &appid=dc95562776b6b4eaf655bac72e985edb
+# Rio de janeiro weather forecast
