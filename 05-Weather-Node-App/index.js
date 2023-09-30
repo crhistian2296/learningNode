@@ -25,11 +25,11 @@ const main = async () => {
         const selectedPlace = places.find((place) => place.id === id);
 
         console.log(
-          `\nWeather in ${selectedPlace.name}, ${selectedPlace.state}, ${selectedPlace.country}`
+          `\nWeather in ${selectedPlace?.name}, ${selectedPlace?.state}, ${selectedPlace?.country}`
             .blue
         );
-        console.log(`Lat: ${selectedPlace.lat}`);
-        console.log(`Lng: ${selectedPlace.lon}`);
+        console.log(`Lat: ${selectedPlace?.lat}`);
+        console.log(`Lng: ${selectedPlace?.lon}`);
         console.log(`Temp: `);
         console.log(`Max Temp: `);
         console.log(`Min Temp: `);
