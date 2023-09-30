@@ -1,8 +1,11 @@
+const fs = require('fs');
+
 const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
 
 class Searches {
-  record = [''];
+  history = [];
+  dbPath = './db/data.json';
 
   constructor() {
     // TODO: Read DB
@@ -60,6 +63,30 @@ class Searches {
       return {};
     }
   }
+
+  addToHistory(search = '') {
+    if (this.history.includes(search)) return;
+    this.history.unshift(search);
+    this.addToDB(this.history);
+  }
+
+  addToDB() {
+    fs.writeFileSync(this.dbPath, JSON.stringify(this.history));
+  }
+
+  readtoDB = () => {
+    try {
+      fs.readFileSync(this.dbPath);
+    } catch (err) {
+      pause();
+      return null;
+    }
+
+    const data = fs.readFileSync(this.dbPath, { encoding: 'utf-8' });
+    const parsedData = JSON.parse(data);
+
+    return parsedData;
+  };
 }
 
 module.exports = { Searches };
