@@ -20,9 +20,9 @@ const main = async () => {
         const places = await searches.cities(place);
         // Choose city
         const id = await listPlaces(places);
-        console.log({ id });
 
         const selectedPlace = places.find((place) => place.id === id);
+        const weather = await searches.cityWeather(selectedPlace?.lat, selectedPlace?.lon);
 
         console.log(
           `\nWeather in ${selectedPlace?.name}, ${selectedPlace?.state}, ${selectedPlace?.country}`
@@ -30,9 +30,11 @@ const main = async () => {
         );
         console.log(`Lat: ${selectedPlace?.lat}`);
         console.log(`Lng: ${selectedPlace?.lon}`);
-        console.log(`Temp: `);
-        console.log(`Max Temp: `);
-        console.log(`Min Temp: `);
+        console.log(`Temp: ${weather?.temp}°C`);
+        console.log(`Feels like: ${weather?.feelsLike}°C`);
+        console.log(`Pressure: ${weather?.pressure}pa`);
+        console.log(`Humidity: ${weather?.humidity}%`);
+        console.log(`Descrition: ${weather?.description}`);
         break;
       case 2: // Historic
         console.log(2);

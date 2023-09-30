@@ -31,7 +31,34 @@ class Searches {
     } catch (err) {
       return [];
     }
-    return []; //arr wich contains all cities
+  }
+
+  async cityWeather(lat = '', lon = '') {
+    try {
+      const instance = axios.create({
+        baseURL: `https://api.openweathermap.org/data/2.5/onecall`,
+        params: {
+          lat,
+          lon,
+          units: 'metric',
+          exclude: 'minutely,hourly,daily',
+          appid: 'dc95562776b6b4eaf655bac72e985edb',
+        },
+      });
+
+      const { data } = await instance.get();
+      return {
+        lat: data?.lat,
+        lon: data?.lon,
+        temp: data?.current?.temp,
+        feelsLike: data?.current?.feels_like,
+        pressure: data?.current?.pressure,
+        humidity: data?.current?.humidity,
+        description: data?.current?.weather[0]?.description,
+      };
+    } catch (err) {
+      return {};
+    }
   }
 }
 
